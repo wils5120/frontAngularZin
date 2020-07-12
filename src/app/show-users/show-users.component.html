@@ -1,0 +1,42 @@
+<div class="content">
+    <div class="text-center mt-3">
+        <h2>Lista de usuarios {{text}}</h2>
+    </div>
+    <div class="mt-4">
+        <div class="col">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Estado</th>
+                        <th>Cedula</th>
+                        <th>Nombre</th>
+                        <th>Correo</th>
+                        <th>monto</th>
+                        <th *ngIf="pending">Pago credito</th>
+                        <th *ngIf="pending">Pagar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let usr of list; index as i" (click)="getUsers(usr.cc)">
+                        <td>{{usr.estado}}</td>
+                        <td>{{usr.cc}}</td>
+                        <td>{{usr.name}}</td>
+                        <td>{{usr.correo}}</td>
+                        <td> {{usr.monto}} </td>
+                        <td *ngIf="pending"> {{usr.pago}} </td>
+                        <td *ngIf="pending && usr.pago == false">
+                            <div>
+                                <button class="btn btn-primary" (click)="UpdateUser(usr)">Pagar Ahora</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <button class="ml-4 btn btn-primary" (click)="getUsersNotapproved(false)" *ngIf="showNoApro"> Usuarios no aprobados
+    </button>
+    <button class="ml-4 btn btn-primary" (click)="getUsersNotapproved(true)" *ngIf="showApro"> Usuarios aprobados
+    </button>
+    <button class="ml-4 btn btn-primary" (click)="ngOnInit()" *ngIf="showAll"> Todos los usuarios </button>
+</div>

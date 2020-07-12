@@ -1,0 +1,63 @@
+<div class="form-container ml-5 mt-5">
+    <form [formGroup]="contactForm" (ngSubmit)="createUser()" class="mt-5 ml-4">
+        <div class="d-flex">
+            <div class="d-block mr-3 w-50">
+                <label>Ingresa Tu nombre</label>
+                <input class="form-control" type="text" formControlName="name" placeholder="Escribe tu nombre">
+                <div class="alert-danger" *ngIf="name.invalid && (name.dirty || name.touched)">
+                    <div class="container-error-message">
+                        Nombre requerido
+                    </div>
+                </div>
+            </div>
+            <div class="d-block mr-3 w-50">
+                <label for="exampleFormControlSelect1">Tipo de cedula</label>
+                <select class="form-control" id="exampleFormControlSelect1">
+                    <option>Cedula de cuidadania</option>
+                    <option>Tarjeta de identidad</option>
+                    <option>Cedula del extranjero</option>
+                </select>
+            </div>
+        </div>
+        <div class="d-flex mt-4">
+            <div class="d-block mr-3 w-50">
+                <label>Ingresa Tu Cedula</label>
+                <input class="form-control" type="number" formControlName="cedula" placeholder="Escribe tu cedula">
+                <div class="alert-danger" *ngIf="cedula.invalid && (cedula.dirty || cedula.touched)">
+                    <div class="container-error-message">
+                        Cedula requerida
+                    </div>
+                </div>
+            </div>
+            <div class="d-block mr-3 w-50">
+                <label>Ingresa cuando dinero vas a solicitar en el rango de 10.000 a 100.000</label>
+                <input class="form-control" type="number" formControlName="monto" placeholder="Monto a solicitar"
+                    min="10000" max="100000" required="true">
+                <div class="alert-danger" *ngIf="monto.invalid && (monto.dirty || monto.touched)">
+                    <div class="container-error-message" *ngIf="monto.errors.required">
+                        Monto requerido
+                    </div>
+                    <div class="container-error-message" *ngIf="monto.errors.min || monto.errors.max">
+                        valor fuera del rango
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-block mt-4">
+            <label>Ingresa Tu Correo electronico</label>
+            <input class="form-control w-50 mr-3" type="text" formControlName="correo" required="true"
+                placeholder="Escribe tu correo">
+            <div class="alert-danger w-50" *ngIf="correo.invalid && (correo.dirty || correo.touched)">
+                <div class="container-error-message" *ngIf="correo.errors.required">
+                    Correo requerido
+                </div>
+                <div class="container-error-message" *ngIf="correo.errors.pattern">
+                    por favor escribir correo valido
+                </div>
+            </div>
+        </div>
+        <div class="mt-4">
+            <button type="submit" class="btn btn-primary btn-send">Solicitar</button>
+        </div>
+    </form>
+</div>
