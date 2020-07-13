@@ -7,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RequestComponent implements OnInit {
 
+  loanBank: Number;
+
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+  }
+
+  recibeLoan(eve) {
+    this.loanBank = eve;
+    console.log(this.loanBank);
   }
 
 }

@@ -3,5 +3,10 @@
         "target": "http://192.168.0.31:3002",
         "secure": false,
         "changeOrigin": true
+    },
+    "/bank/*": {
+        "target": "http://192.168.0.31:3002",
+        "secure": false,
+        "changeOrigin": true
     }
 }

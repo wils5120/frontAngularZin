@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { RequestComponent } from './request.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { BankComponent } from '../bank/bank.component';
 
 const routes: Routes = [
   { path: '', component: RequestComponent },
@@ -11,7 +11,8 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    
   ],
   exports: [RouterModule,
     FormsModule,

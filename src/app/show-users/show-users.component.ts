@@ -8,6 +8,7 @@ import { TaskService } from '../services/task.service';
 })
 export class ShowUsersComponent implements OnInit {
 
+  
   constructor(private servicesUser: TaskService) { }
 
   listUsr: any;
@@ -19,7 +20,7 @@ export class ShowUsersComponent implements OnInit {
   showAll: boolean = false;
   showNoApro: boolean = true;
   showApro: boolean = true;
-
+  submitMonto: Number;
 
   getUsers(value: Number) {
     this.servicesUser.getUser(value).subscribe(usr => {
@@ -65,8 +66,6 @@ export class ShowUsersComponent implements OnInit {
     })
   }
 
-
-
   UpdateUser(usrs) {
     console.log(usrs)
     const usr = {
@@ -82,6 +81,7 @@ export class ShowUsersComponent implements OnInit {
     this.servicesUser.update(usr).subscribe((user) => {
       console.log(user);
       this.getUsersNotapproved(true);
+      this.submitMonto = usrs.monto;
     })
   }
 

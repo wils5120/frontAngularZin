@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TaskService } from 'src/app/services/task.service';
 
@@ -9,10 +9,16 @@ import { TaskService } from 'src/app/services/task.service';
 })
 export class FormComponent implements OnInit {
 
+  ngOnInit() {
+  }
+
   emailPattern: any = /^(([^<>()\[\]\.,;:\s@\”]+(\.[^<>()\[\]\.,;:\s@\”]+)*)|(\”.+\”))@(([^<>()[\]\.,;:\s@\”]+\.)+[^<>()[\]\.,;:\s@\”]{2,})$/;
   status: boolean;
   buy: boolean;
   userValid: any;
+  @Output()
+  submitLoan: EventEmitter<Number> = new EventEmitter<Number>();
+  loanSoon: Number;
 
   createFormGroup() {
     return new FormGroup({
@@ -31,9 +37,6 @@ export class FormComponent implements OnInit {
     this.contactForm = this.createFormGroup();
   }
 
-
-  ngOnInit() {
-  }
 
   onRestForm() {
     this.contactForm.reset();
@@ -61,8 +64,9 @@ export class FormComponent implements OnInit {
         }
         if (valUs.estado == true && valUs.pago == true) {
           alert('su solicitud a sido aprobada')
+          this.submitLoan.emit(this.contactForm.value.monto);
         }
-        if(valUs.estado == false) {
+        if (valUs.estado == false) {
           alert('su solicitud a sido negada.');
         }
         this.UpdateUser();
@@ -76,6 +80,7 @@ export class FormComponent implements OnInit {
         if (numStatus == 1) {
           this.status = true;
           alert('su solicitud a sido aprobada')
+          this.submitLoan.emit(this.contactForm.value.monto);
         } else {
           this.status = false;
           alert('su solicitud a sido denegada')
@@ -87,7 +92,7 @@ export class FormComponent implements OnInit {
 
 
   UpdateUser() {
-    let cedulaEnd = this.contactForm.value.cedula +  Math.floor(Math.random() * (8 - 2)) + 2;
+    let cedulaEnd = this.contactForm.value.cedula + Math.floor(Math.random() * (8 - 2)) + 2;
     const usr = {
       estado: this.status,
       pago: this.buy,
@@ -98,10 +103,10 @@ export class FormComponent implements OnInit {
       cc: this.contactForm.value.cedula
     }
     console.log(usr);
-    /* this.servicesUser.createUser(usr).subscribe((user) => {
+    this.servicesUser.createUser(usr).subscribe((user) => {
        console.log(user);
-     }) */
-    //this.onRestForm();
+     })
+    this.onRestForm();
   }
 
   get name() { return this.contactForm.get('name'); }
